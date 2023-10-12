@@ -1,3 +1,5 @@
+const { createApp } = Vue;
+
 createApp({
     data() {
         return {
@@ -6,10 +8,12 @@ createApp({
         };
     },
     methods: {
-        handleClick() {
+        add() {
             if (this.text) {
                 this.notes.push(this.text);
+                this.text = "";
+                this.$refs.input.focus();
             }
         },
     },
-}).mount("app");
+}).mount("#app");
