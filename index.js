@@ -14,14 +14,29 @@ createApp({
     },
     methods: {
         add() {
-            if (this.title) {
-                this.notes.push(this.title);
+            if (this.title || this.text) {
+                this.notes.push(createNote(this.title, this.text));
                 this.title = "";
-                this.$refs.input.focus();
+                this.text = "";
+                //this.$refs.input.focus();
             }
         },
-        handleClickLIItem(position) {
+        del(position) {
             this.notes.splice(position, 1);
         }
     },
 }).mount("#app");
+
+function createNote(title, text) {
+    const id = generateId(title, text);
+    return {
+        id, title, text
+    };
+
+}
+
+function generateId(title, text, length = 10) {
+    return CryptoJS.SHA256(title + text + new Date())
+        .toString()
+        .substring(0, length);
+}
