@@ -3,28 +3,35 @@ const { createApp } = Vue;
 createApp({
     data() {
         return {
-            notes: [
-                { id: "6769c9ba771", title: "Title 1", text: "ToDo 1" },
-                { id: "dc19d1538f", title: "Title 2", text: "ToDo 2" },
-                { id: "fd8c75b4fb", title: "Title 3", text: "ToDo 3" },
-            ],
-            title: null,
-            text: null,
+            notes: [],
+            title: "",
+            text: "",
         };
     },
     methods: {
         add() {
             if (this.title || this.text) {
                 this.notes.push(createNote(this.title, this.text));
+                this.save();
                 this.title = "";
                 this.text = "";
                 //this.$refs.input.focus();
             }
         },
-        del(position) {
+        del(id) {
+            const position = this.notes.findIndex((note) => note.id === id);
             this.notes.splice(position, 1);
-        }
+            this.save(); // Keep this if a deleted item should not be there after reloading the page.
+        },
+        save() {
+            localStorage.setItem("notes", JSON.stringify(this.notes));
+        },
     },
+
+    created() {
+        this.notes = JSON.parse(localStorage.getItem("notes")) || [];
+    },
+
 }).mount("#app");
 
 function createNote(title, text) {
