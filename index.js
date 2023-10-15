@@ -15,7 +15,7 @@ createApp({
                 this.save();
                 this.title = "";
                 this.text = "";
-                //this.$refs.input.focus();
+                this.$refs.input.focus();
             }
         },
         del(id) {
