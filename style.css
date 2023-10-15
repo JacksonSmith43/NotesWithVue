@@ -33,17 +33,21 @@ body {
     width: 18rem;
     height: 10rem;
     border-radius: 5%;
-
+    overflow: scroll;
 }
 
 .note {
     font-size: 1.5rem;
     flex: 0 0 20%;
+    border-style: solid;
+    border-color: green;
+    margin-left: 1rem;
 }
 
 
 .notes {
-    margin-left: 2rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
     list-style-type: none;
     display: flex;
     flex-flow: row wrap;
@@ -51,27 +55,32 @@ body {
 
 .input {
     margin: 3rem 0rem 0rem 43rem;
-    background: red;
+
 }
 
 .note__title {
     font-weight: bold;
+    text-align: center;
 }
 
 li {
     margin-top: 3rem;
     background-color: rgb(168, 200, 167);
+    text-align: center;
 }
 
 
-.delete__button,
+/*.delete__button,
 .add__button {
     height: 2rem;
     width: 2rem;
-}
+}*/
 
 .add__button {
     margin-left: 16.5rem;
+    display: flex;
+    flex-flow: row-reverse nowrap;
+    cursor: pointer;
 }
 
 
@@ -83,4 +92,45 @@ li {
 button:focus {
     border-style: solid;
     border-color: red;
+}
+
+
+.v-enter-active {
+    /* transition-group from HTML.*/
+    animation-name: slide;
+    animation-duration: 500ms;
+    animation-delay: 600;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-direction: normal;
+}
+
+@keyframes slide {
+    from {
+        transform: translateX(100vw);
+        /* It is 100% to the right, width (viewpoint width).*/
+    }
+
+    to {
+        transform: translateX(0);
+    }
+}
+
+
+@media screen and (max-width: 1280px) {
+    .note {
+        flex: 0 1 calc(50% - 4rem);
+    }
+}
+
+
+@media screen and (max-width: 760px) {
+    .input {
+        max-width: unset;
+        margin: 2rem 3rem 3rem;
+    }
+
+    .note {
+        flex: 0 1 calc(100% - 4rem);
+    }
 }
